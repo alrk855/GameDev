@@ -1,0 +1,877 @@
+[gd_scene load_steps=43 format=3 uid="uid://bk5q0a776lue6"]
+
+[ext_resource type="Texture2D" uid="uid://d4dby1xt426bb" path="res://Images/IMG.png" id="1_cebuy"]
+[ext_resource type="StyleBox" uid="uid://btrq2yxd4rhqe" path="res://Style_button_normal.tres" id="2_3a5co"]
+[ext_resource type="Script" uid="uid://cb3at5yblodwd" path="res://Scripts/button.gd" id="3_ysyx0"]
+[ext_resource type="AudioStream" uid="uid://mcjk4y7sawpr" path="res://Audio/u4.mp3" id="4_43bnc"]
+[ext_resource type="AudioStream" uid="uid://b80ekvtc453xi" path="res://Audio/u1.mp3" id="4_53v7h"]
+[ext_resource type="Script" uid="uid://bglq0xibjuj7l" path="res://Scripts/button2.gd" id="4_q855l"]
+[ext_resource type="Script" uid="uid://dbe7cyjoukrm5" path="res://Scripts/button3.gd" id="5_53v7h"]
+[ext_resource type="FontFile" uid="uid://bxlpv777qtrcc" path="res://fonts/BergamotOrnaments-3oK6.ttf" id="6_s36xt"]
+[ext_resource type="Texture2D" uid="uid://br1uhsw5oeruo" path="res://Images/BlueSky_HD.jpg" id="7_43bnc"]
+[ext_resource type="Script" uid="uid://o5lt2vm64kgf" path="res://Scripts/Panel_fade.gd" id="8_w5jp5"]
+[ext_resource type="Script" uid="uid://c2tvybmyocklw" path="res://Scripts/button_change.gd" id="9_pj5sj"]
+[ext_resource type="Script" uid="uid://dqn6vadeju17o" path="res://Scripts/klikni.gd" id="10_ab5mb"]
+[ext_resource type="AudioStream" uid="uid://ctvw57eupcp6k" path="res://Audio/game.mp3" id="12_s36xt"]
+[ext_resource type="Script" uid="uid://q1se55gpch2v" path="res://settings.gd" id="12_u6qb4"]
+[ext_resource type="AudioStream" uid="uid://cfgl7yqq6friy" path="res://Audio/swoosh-6-351021.mp3" id="12_w5jp5"]
+[ext_resource type="Texture2D" uid="uid://dvxlxpcqh6pd0" path="res://Audio/speaker-filled-audio-tool.png" id="13_tvv58"]
+[ext_resource type="FontFile" uid="uid://cpanjy35sky82" path="res://fonts/Russo_One.ttf" id="14_u2ek0"]
+[ext_resource type="Texture2D" uid="uid://b805xlr5mghjj" path="res://Icons/arrows.png" id="15_xw7w0"]
+[ext_resource type="Script" uid="uid://dlkpax1c2hbxw" path="res://Scripts/nagore.gd" id="16_3a5co"]
+[ext_resource type="Script" uid="uid://rfjkkqvnyv7u" path="res://Scripts/upatstvo.gd" id="17_ysyx0"]
+[ext_resource type="Texture2D" uid="uid://clla1e7i671kn" path="res://Images/frameUpatstvo.png" id="19_s36xt"]
+[ext_resource type="Script" uid="uid://dlcxwbu8g411s" path="res://Scripts/nazad_upatstvo.gd" id="20_43bnc"]
+
+[sub_resource type="Shader" id="Shader_5nrr4"]
+code = "shader_type canvas_item;
+
+
+uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_nearest;
+
+uniform vec4 color: source_color = vec4(0.,0.5,1.0,1.0);
+//uniform float amplitude : hint_range(0., 2., 0.01) = 2.;
+uniform float frequency : hint_range(0., 1000. , 1.) = 3.;
+uniform float compress : hint_range(1., 2. , 0.01) = 1.;
+uniform float add_light : hint_range(0., 2. , 0.01) = 0.;
+
+uniform float scale : hint_range(0., 2. , 0.01) = 1.;
+uniform float speed : hint_range(-1000., 1000. , 0.01) = 1.;
+uniform float x_angle: hint_range(-1.57, 1.57, 0.01) = 1.57;
+uniform float y_angle: hint_range(-1.57, 1.57, 0.01) = 1.57;
+uniform float base_alpha : hint_range(-2., 2. , 0.01) = 0.8;
+uniform float refraction_ratio: hint_range(-100, 100, 0.01) = 10.;//0.2;
+uniform float clear : hint_range(0., 1. , 0.01) = 0.;
+
+uniform float surf_sinpowder : hint_range(0., 8. , 1.) = 8.;
+uniform float surf_speed : hint_range(-10., 10. , 0.01) = 1.;
+uniform float surf_angle : hint_range(-1.57, 1.57, 0.01) = 1.57;
+uniform float surf_magnitude : hint_range(0., 10. , 0.01) = 0.;
+
+uniform float s11: hint_range(-10, 10, 0.01) = 2.221;
+uniform float sinpowder : hint_range(0., 8. , 1.) = 8.;
+
+vec2 UVtoSreenUV(vec2 uv, bool is_camera_center, vec2 texture_pixel_size, vec2 screen_pixel_size, vec4 fragcoord) {
+
+	vec2 suv = (uv - 0.5)*2.;
+
+	if (is_camera_center) {
+
+		return (fragcoord.xy + suv*0.01/texture_pixel_size)*screen_pixel_size*0.5;
+	} else {
+
+		return (fragcoord.xy + suv*0.01/texture_pixel_size)*screen_pixel_size;
+	}
+}
+
+vec2 shiftuv2(vec2 uv, float shiftratio) {
+
+	vec2 suv = (uv - 0.5)*2.;
+
+	return (suv + suv*-1.*shiftratio)*0.5 + 0.5;
+}
+
+float yget(float x,float fc1,float fc2,float fc3,float fc4,float tc1,float tc2,float tc3,float tc4,float amc1,float amc2,float amc3,float amc4,float way,float addt) {
+
+	float t = speed*TIME*way + addt;
+	float y = sin(x * frequency);
+
+	y += pow(abs(sin(x*frequency*fc1 + t*tc1)),sinpowder)*amc1;
+	y += pow(abs(sin(x*frequency*fc2 + t*tc2)),sinpowder)*amc2;
+	y += pow(abs(sin(x*frequency*fc3 + t*tc3)),sinpowder)*amc3;
+	y += pow(abs(sin(x*frequency*fc4 + t*tc4)),sinpowder)*amc4;
+	y /= (amc1+amc2+amc3+amc4);
+
+	return y;
+}
+
+void fragment(){
+
+	vec2 st = (UV-0.5)*2.*scale;
+
+	float dl = distance(vec2(0.), vec2(dFdx(st.x), dFdy(st.y)));
+
+	vec2 st2 = ((UV-0.5)*2. + dl)*scale;
+
+	float x = st.x;
+	float y = st.y;
+
+	float adda = pow(abs(sin(surf_speed*TIME*scale + x*sin(surf_angle) + y*cos(surf_angle))),surf_sinpowder)*surf_magnitude;
+
+	st.x += adda*cos(surf_angle);
+	st.y += adda*sin(surf_angle);
+
+	COLOR = color;
+
+ 	float a1 = (yget(distance(vec2(0.),st),1.30,1.72,s11,3.1122,1.,1.121,0.437,4.,4.5,4.,5.,2.5,1.,0.)
+	+ yget(distance(vec2(0.5,3.5),st),1.32,1.72,s11,3.1122,1.,1.121,0.437,4.269,4.5,4.,5.,2.5,-1.,0.)
+	+ yget(distance(vec2(4.5,-4.5),st),1.31,1.72,s11,3.1122,1.,1.121,0.437,4.269,4.5,4.,5.,2.5,1.,0.)
+	+ yget(distance(vec2(-5.5,-2.5),st),1.27,1.72,s11,3.1122,1.,1.121,0.437,5.,4.5,4.,5.,2.5,-1.,0.)
+	+ yget(distance(vec2(-7.5,3.5),st),1.25,1.72,s11,3.1122,1.,1.121,0.437,5.,4.5,4.,5.,2.5,1.,0.)
+	+ yget(distance(vec2(3.25,3.25),st),1.34,1.72,s11,3.1122,1.,1.121,0.437,4.269,4.5,4.,5.,2.5,1.,0.)
+	+ yget(distance(vec2(6.25,-4.25),st),1.36,1.72,s11,3.1122,1.,1.121,0.437,4.269,4.5,4.,5.,2.5,-1.,0.)
+	+ yget(distance(vec2(-7.25,-1.25),st),1.27,1.72,s11,3.1122,1.,1.121,0.437,5.,4.5,4.,5.,2.5,1.,0.)
+	+ yget(distance(vec2(-0.25,5.25),st),1.59,1.72,s11,3.1122,1.,1.121,0.437,5.,4.5,4.,5.,2.5,-1.,0.))/9.;
+
+ 	float a2 = (yget(distance(vec2(0.),st2),1.30,1.72,s11,3.1122,1.,1.121,0.437,4.,4.5,4.,5.,2.5,1.,0.)
+	+ yget(distance(vec2(0.5,3.5),st2),1.32,1.72,s11,3.1122,1.,1.121,0.437,4.269,4.5,4.,5.,2.5,-1.,0.)
+	+ yget(distance(vec2(4.5,-4.5),st2),1.31,1.72,s11,3.1122,1.,1.121,0.437,4.269,4.5,4.,5.,2.5,1.,0.)
+	+ yget(distance(vec2(-5.5,-2.5),st2),1.27,1.72,s11,3.1122,1.,1.121,0.437,5.,4.5,4.,5.,2.5,-1.,0.)
+	+ yget(distance(vec2(-7.5,3.5),st2),1.25,1.72,s11,3.1122,1.,1.121,0.437,5.,4.5,4.,5.,2.5,1.,0.)
+	+ yget(distance(vec2(3.25,3.25),st2),1.34,1.72,s11,3.1122,1.,1.121,0.437,4.269,4.5,4.,5.,2.5,1.,0.)
+	+ yget(distance(vec2(6.25,-4.25),st2),1.36,1.72,s11,3.1122,1.,1.121,0.437,4.269,4.5,4.,5.,2.5,-1.,0.)
+	+ yget(distance(vec2(-7.25,-1.25),st2),1.27,1.72,s11,3.1122,1.,1.121,0.437,5.,4.5,4.,5.,2.5,1.,0.)
+	+ yget(distance(vec2(-0.25,5.25),st2),1.59,1.72,s11,3.1122,1.,1.121,0.437,5.,4.5,4.,5.,2.5,-1.,0.))/9.;
+
+	float da = clamp((a2 - a1)*compress, 0., 1.);
+	float ang = atan(da/dl);
+
+	vec2 rUV = UV;
+	rUV.y = (1. - rUV.y) + FRAGCOORD.y*SCREEN_PIXEL_SIZE.y;
+	//vec4 RsC = textureLod(screen_texture, UVtoSreenUV(rUV, false, TEXTURE_PIXEL_SIZE, SCREEN_PIXEL_SIZE, FRAGCOORD), 0.0);//vec4(0.);
+	vec4 bC = textureLod(screen_texture, UVtoSreenUV(shiftuv2(UV, ang*refraction_ratio), false, TEXTURE_PIXEL_SIZE, SCREEN_PIXEL_SIZE, FRAGCOORD), 0.0);
+
+	float a = ((sin(ang - PI*0.5 + y_angle) + cos(ang - PI*1.5 + x_angle)) + adda)/1.5;//sin(ang - PI*0.5 + y_angle)*0.5 - cos(ang + x_angle)*0.5;
+
+	COLOR.a = clamp(base_alpha + a, 0., 1.);
+	COLOR.rgb = clamp(COLOR.rgb + mix(vec3(COLOR.a), bC.rgb, clear)*vec3(1. + add_light), vec3(0.), vec3(1.));
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3kq1t"]
+shader = SubResource("Shader_5nrr4")
+shader_parameter/color = Color(0, 0.5, 1, 1)
+shader_parameter/frequency = 3.0
+shader_parameter/compress = 1.0
+shader_parameter/add_light = 0.0
+shader_parameter/scale = 1.0
+shader_parameter/speed = 1.0
+shader_parameter/x_angle = 1.57
+shader_parameter/y_angle = 1.57
+shader_parameter/base_alpha = 0.8
+shader_parameter/refraction_ratio = 10.0
+shader_parameter/clear = 0.0
+shader_parameter/surf_sinpowder = 8.0
+shader_parameter/surf_speed = 1.0
+shader_parameter/surf_angle = 1.57
+shader_parameter/surf_magnitude = 0.0
+shader_parameter/s11 = 2.221
+shader_parameter/sinpowder = 8.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dnfjo"]
+texture = ExtResource("1_cebuy")
+
+[sub_resource type="SystemFont" id="SystemFont_m625n"]
+font_names = PackedStringArray("Fantasy")
+font_weight = 500
+font_stretch = 150
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wugcc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wugcc"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 16
+corner_radius_bottom_right = 4
+shadow_color = Color(0, 0, 0, 0.454902)
+shadow_size = 5
+shadow_offset = Vector2(1.315, 3.165)
+
+[sub_resource type="Animation" id="Animation_dnfjo"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_gtid3"]
+resource_name = "test_animation"
+length = 1.66667
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.927931, 1.6446),
+"transitions": PackedFloat32Array(1, 1, 0.406127, 1.1487),
+"update": 0,
+"values": [Vector2(465, 240), Vector2(463.175, 242), Vector2(465.795, 246), Vector2(467, 243)]
+}
+
+[sub_resource type="Animation" id="Animation_wugcc"]
+resource_name = "test_animation2"
+length = 1.66667
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.933333, 1.6446),
+"transitions": PackedFloat32Array(1, 1, 0.406127, 1.1487),
+"update": 0,
+"values": [Vector2(465, 315), Vector2(463.175, 317), Vector2(465.795, 313), Vector2(466, 317)]
+}
+
+[sub_resource type="Animation" id="Animation_257up"]
+resource_name = "test_animation3"
+length = 1.66667
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.95, 1.6446),
+"transitions": PackedFloat32Array(1, 1.46409, 0.406127, 1.23115),
+"update": 0,
+"values": [Vector2(465, 383), Vector2(463.175, 385), Vector2(465.795, 383), Vector2(465, 385)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_257up"]
+_data = {
+&"RESET": SubResource("Animation_dnfjo"),
+&"test_animation": SubResource("Animation_gtid3"),
+&"test_animation2": SubResource("Animation_wugcc"),
+&"test_animation3": SubResource("Animation_257up")
+}
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_domf7"]
+texture = ExtResource("7_43bnc")
+modulate_color = Color(0.788235, 0.937255, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_es6ti"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="SystemFont" id="SystemFont_es6ti"]
+font_names = PackedStringArray("Stalinist One")
+
+[sub_resource type="Animation" id="Animation_wrfco"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_t301m"]
+resource_name = "fade"
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 2.46229),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_teegn"]
+_data = {
+&"RESET": SubResource("Animation_wrfco"),
+&"fade": SubResource("Animation_t301m")
+}
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_5nrr4"]
+load_path = "res://.godot/imported/imgSIVA.jpg-b31a3aefac68274fe9ac966c7cf70fff.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_b3jh2"]
+texture = SubResource("CompressedTexture2D_5nrr4")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_w5jp5"]
+texture = ExtResource("19_s36xt")
+
+[node name="Control" type="Control"]
+material = SubResource("ShaderMaterial_3kq1t")
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MAIN_POZADINA" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_dnfjo")
+
+[node name="Button_Igraj" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -111.0
+offset_top = -84.0
+offset_right = 108.0
+offset_bottom = -31.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(109.005, 25.41)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = SubResource("SystemFont_m625n")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wugcc")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_wugcc")
+theme_override_styles/hover = SubResource("StyleBoxFlat_wugcc")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_wugcc")
+theme_override_styles/normal = ExtResource("2_3a5co")
+text = "Играј"
+script = ExtResource("3_ysyx0")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Button_Igraj"]
+libraries = {
+&"": SubResource("AnimationLibrary_257up")
+}
+
+[node name="Click_sound" type="AudioStreamPlayer2D" parent="Button_Igraj"]
+stream = ExtResource("4_43bnc")
+volume_db = -2.0
+
+[node name="Hover_sound" type="AudioStreamPlayer2D" parent="Button_Igraj"]
+stream = ExtResource("4_53v7h")
+volume_db = -6.0
+
+[node name="Button_Podesuvanja" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -111.0
+offset_top = -9.0
+offset_right = 108.0
+offset_bottom = 44.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(109.005, 25.41)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = SubResource("SystemFont_m625n")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wugcc")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_wugcc")
+theme_override_styles/hover = SubResource("StyleBoxFlat_wugcc")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_wugcc")
+theme_override_styles/normal = ExtResource("2_3a5co")
+text = "Подесувања"
+script = ExtResource("4_q855l")
+transit = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Button_Podesuvanja"]
+libraries = {
+&"": SubResource("AnimationLibrary_257up")
+}
+
+[node name="Hover_sound" type="AudioStreamPlayer2D" parent="Button_Podesuvanja"]
+stream = ExtResource("4_53v7h")
+volume_db = -6.0
+
+[node name="Click_sound" type="AudioStreamPlayer2D" parent="Button_Podesuvanja"]
+stream = ExtResource("4_43bnc")
+volume_db = -2.0
+
+[node name="Button_Izlez" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -111.0
+offset_top = 59.0
+offset_right = 108.0
+offset_bottom = 112.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(109.005, 25.41)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = SubResource("SystemFont_m625n")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wugcc")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_wugcc")
+theme_override_styles/hover = SubResource("StyleBoxFlat_wugcc")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_wugcc")
+theme_override_styles/normal = ExtResource("2_3a5co")
+text = "Излез
+"
+script = ExtResource("5_53v7h")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Button_Izlez"]
+libraries = {
+&"": SubResource("AnimationLibrary_257up")
+}
+speed_scale = 1.193
+
+[node name="Hover_sound" type="AudioStreamPlayer2D" parent="Button_Izlez"]
+stream = ExtResource("4_53v7h")
+volume_db = -6.0
+
+[node name="Click_sound" type="AudioStreamPlayer2D" parent="Button_Izlez"]
+stream = ExtResource("4_43bnc")
+volume_db = -2.0
+
+[node name="OrnamentMAIN" type="RichTextLabel" parent="."]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -83.0
+offset_top = -189.0
+offset_right = 83.0
+offset_bottom = -84.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("6_s36xt")
+theme_override_font_sizes/normal_font_size = 64
+text = "l"
+autowrap_mode = 0
+
+[node name="Panel2" type="Panel" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -652.0
+offset_bottom = -648.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_domf7")
+script = ExtResource("8_w5jp5")
+
+[node name="Button_change" type="Button" parent="Panel2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -7.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/focus = SubResource("StyleBoxFlat_es6ti")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_es6ti")
+theme_override_styles/hover = SubResource("StyleBoxFlat_es6ti")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_es6ti")
+theme_override_styles/normal = SubResource("StyleBoxFlat_es6ti")
+script = ExtResource("9_pj5sj")
+transit = 4
+
+[node name="swoosh" type="AudioStreamPlayer2D" parent="Panel2/Button_change"]
+stream = ExtResource("12_w5jp5")
+volume_db = -2.0
+
+[node name="KLIKNI" type="RichTextLabel" parent="Panel2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -256.0
+offset_top = -19.0
+offset_right = 256.0
+offset_bottom = 19.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = SubResource("SystemFont_es6ti")
+theme_override_font_sizes/normal_font_size = 24
+text = "Кликни за да започнеш"
+autowrap_mode = 0
+script = ExtResource("10_ab5mb")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Panel2/KLIKNI"]
+libraries = {
+&"": SubResource("AnimationLibrary_teegn")
+}
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -649)
+offset = Vector2(576, 324)
+
+[node name="OrnamentContainerLeft" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = -350.0
+offset_top = 228.0
+offset_right = -44.0
+offset_bottom = 440.0
+
+[node name="ornamentside2" type="RichTextLabel" parent="OrnamentContainerLeft"]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("6_s36xt")
+theme_override_font_sizes/normal_font_size = 42
+text = "XX"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+
+[node name="ornamentside3" type="RichTextLabel" parent="OrnamentContainerLeft"]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("6_s36xt")
+theme_override_font_sizes/normal_font_size = 42
+text = "XX"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+
+[node name="ornamentside" type="RichTextLabel" parent="OrnamentContainerLeft"]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("6_s36xt")
+theme_override_font_sizes/normal_font_size = 42
+text = "XX"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+
+[node name="OrnamentContainerRight" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 1200.0
+offset_top = 228.0
+offset_right = 1506.0
+offset_bottom = 440.0
+
+[node name="ornamentside2" type="RichTextLabel" parent="OrnamentContainerRight"]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("6_s36xt")
+theme_override_font_sizes/normal_font_size = 42
+text = "XX"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+
+[node name="ornamentside3" type="RichTextLabel" parent="OrnamentContainerRight"]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("6_s36xt")
+theme_override_font_sizes/normal_font_size = 42
+text = "XX"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+
+[node name="ornamentside" type="RichTextLabel" parent="OrnamentContainerRight"]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("6_s36xt")
+theme_override_font_sizes/normal_font_size = 42
+text = "XX"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+
+[node name="THEME_SONG" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("12_s36xt")
+autoplay = true
+attenuation = 0.0281641
+bus = &"OST"
+
+[node name="MAIN_PODESUVANJE" type="Panel" parent="."]
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 648.0
+offset_bottom = 648.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_b3jh2")
+script = ExtResource("12_u6qb4")
+
+[node name="HSlider" type="HSlider" parent="MAIN_PODESUVANJE"]
+z_index = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -183.0
+offset_top = -123.0
+offset_right = 82.0
+offset_bottom = -70.0
+grow_horizontal = 2
+grow_vertical = 2
+min_value = -50.0
+
+[node name="CheckBox" type="CheckBox" parent="MAIN_PODESUVANJE"]
+layout_mode = 0
+offset_left = 629.0
+offset_top = 289.0
+offset_right = 653.0
+offset_bottom = 317.0
+focus_mode = 0
+action_mode = 0
+icon_alignment = 1
+
+[node name="OptionLanguage" type="OptionButton" parent="MAIN_PODESUVANJE"]
+layout_mode = 0
+offset_left = 562.0
+offset_top = 443.0
+offset_right = 724.0
+offset_bottom = 468.0
+focus_mode = 0
+item_count = 2
+popup/item_0/text = "MKD"
+popup/item_0/id = 0
+popup/item_1/text = "ENG"
+popup/item_1/id = 1
+
+[node name="OptionGender" type="OptionButton" parent="MAIN_PODESUVANJE"]
+layout_mode = 0
+offset_left = 562.0
+offset_top = 363.0
+offset_right = 724.0
+offset_bottom = 394.0
+focus_mode = 0
+item_count = 2
+popup/item_0/text = "Male"
+popup/item_0/id = 0
+popup/item_1/text = "Female"
+popup/item_1/id = 1
+
+[node name="Speaker-filled-audio-tool" type="Sprite2D" parent="MAIN_PODESUVANJE"]
+z_index = 3
+position = Vector2(333, 231)
+scale = Vector2(0.16, 0.16)
+texture = ExtResource("13_tvv58")
+
+[node name="language" type="RichTextLabel" parent="MAIN_PODESUVANJE"]
+z_index = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -321.0
+offset_top = 107.0
+offset_right = -43.0
+offset_bottom = 163.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("14_u2ek0")
+theme_override_font_sizes/normal_font_size = 48
+text = "LANGUAGE"
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="gender" type="RichTextLabel" parent="MAIN_PODESUVANJE"]
+z_index = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -298.0
+offset_top = 30.0
+offset_right = -64.0
+offset_bottom = 86.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("14_u2ek0")
+theme_override_font_sizes/normal_font_size = 48
+text = "GENDER"
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MUTE" type="RichTextLabel" parent="MAIN_PODESUVANJE"]
+z_index = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 90.0
+offset_top = -49.0
+offset_right = 324.0
+offset_bottom = 7.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("14_u2ek0")
+theme_override_font_sizes/normal_font_size = 48
+text = "MUTE"
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MASTER" type="RichTextLabel" parent="MAIN_PODESUVANJE"]
+z_index = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 89.0
+offset_top = -119.0
+offset_right = 323.0
+offset_bottom = -63.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("14_u2ek0")
+theme_override_font_sizes/normal_font_size = 48
+text = "MASTER"
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PodesuvanjeTEXT" type="RichTextLabel" parent="MAIN_PODESUVANJE"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = -268.0
+offset_right = 180.0
+offset_bottom = -212.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("14_u2ek0")
+theme_override_font_sizes/normal_font_size = 48
+text = "Подесувања"
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Nagore" type="Button" parent="MAIN_PODESUVANJE"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -83.0
+offset_top = 210.0
+offset_right = 83.0
+offset_bottom = 281.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+icon = ExtResource("15_xw7w0")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("16_3a5co")
+transit = 4
+
+[node name="Hover_sound" type="AudioStreamPlayer2D" parent="MAIN_PODESUVANJE/Nagore"]
+stream = ExtResource("4_53v7h")
+volume_db = -6.0
+
+[node name="Click_sound" type="AudioStreamPlayer2D" parent="MAIN_PODESUVANJE/Nagore"]
+stream = ExtResource("4_43bnc")
+volume_db = -2.0
+
+[node name="UPATSTVO" type="Button" parent="."]
+layout_mode = 0
+offset_left = 536.0
+offset_top = 521.0
+offset_right = 626.0
+offset_bottom = 552.0
+focus_mode = 0
+text = "UPATSTVO"
+script = ExtResource("17_ysyx0")
+
+[node name="Hover_sound" type="AudioStreamPlayer2D" parent="UPATSTVO"]
+stream = ExtResource("4_53v7h")
+volume_db = -6.0
+
+[node name="Click_sound" type="AudioStreamPlayer2D" parent="UPATSTVO"]
+stream = ExtResource("4_43bnc")
+volume_db = -2.0
+
+[node name="MAIN_UPATSTVO" type="Panel" parent="."]
+visible = false
+z_index = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_w5jp5")
+
+[node name="nazad" type="Button" parent="MAIN_UPATSTVO"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = 265.0
+offset_right = 32.0
+offset_bottom = 296.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+text = "НАЗАД"
+script = ExtResource("20_43bnc")
+
+[node name="Hover_sound" type="AudioStreamPlayer2D" parent="MAIN_UPATSTVO/nazad"]
+stream = ExtResource("4_53v7h")
+volume_db = -6.0
+
+[node name="Click_sound" type="AudioStreamPlayer2D" parent="MAIN_UPATSTVO/nazad"]
+stream = ExtResource("4_43bnc")
+volume_db = -2.0
+
+[connection signal="mouse_entered" from="Button_Igraj" to="Button_Igraj" method="_on_mouse_entered"]
+[connection signal="mouse_entered" from="Button_Podesuvanja" to="Button_Podesuvanja" method="_on_mouse_entered"]
+[connection signal="mouse_entered" from="Button_Izlez" to="Button_Izlez" method="_on_mouse_entered"]
+[connection signal="value_changed" from="MAIN_PODESUVANJE/HSlider" to="MAIN_PODESUVANJE" method="_on_h_slider_value_changed"]
+[connection signal="toggled" from="MAIN_PODESUVANJE/CheckBox" to="MAIN_PODESUVANJE" method="_on_check_box_toggled"]
+[connection signal="mouse_entered" from="MAIN_PODESUVANJE/Nagore" to="MAIN_PODESUVANJE/Nagore" method="_on_mouse_entered"]
+[connection signal="mouse_entered" from="UPATSTVO" to="UPATSTVO" method="_on_mouse_entered"]
+[connection signal="mouse_entered" from="MAIN_UPATSTVO/nazad" to="MAIN_UPATSTVO/nazad" method="_on_mouse_entered"]
