@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://bk5q0a776lue6"]
+[gd_scene load_steps=42 format=3 uid="uid://bk5q0a776lue6"]
 
 [ext_resource type="Texture2D" uid="uid://d4dby1xt426bb" path="res://Images/IMG.png" id="1_cebuy"]
 [ext_resource type="StyleBox" uid="uid://btrq2yxd4rhqe" path="res://Themes/Style_button_normal.tres" id="2_3a5co"]
@@ -157,9 +157,6 @@ shader_parameter/surf_magnitude = 0.0
 shader_parameter/s11 = 2.221
 shader_parameter/sinpowder = 8.0
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dnfjo"]
-texture = ExtResource("1_cebuy")
-
 [sub_resource type="SystemFont" id="SystemFont_m625n"]
 font_names = PackedStringArray("Fantasy")
 font_weight = 500
@@ -307,14 +304,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MAIN_POZADINA" type="Panel" parent="."]
+[node name="MAIN_POZADINA" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_dnfjo")
+texture = ExtResource("1_cebuy")
+expand_mode = 1
 
 [node name="Button_Igraj" type="Button" parent="."]
 layout_mode = 1
@@ -443,15 +441,15 @@ volume_db = -2.0
 modulate = Color(1, 1, 1, 0)
 self_modulate = Color(0, 0, 0, 1)
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = -1
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 0.665
 anchor_right = 0.5
-anchor_bottom = 0.5
+anchor_bottom = 0.665
 offset_left = -83.0
-offset_top = -189.0
+offset_top = -295.92
 offset_right = 83.0
-offset_bottom = -84.0
+offset_bottom = -190.92
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/normal_font = ExtResource("6_s36xt")
