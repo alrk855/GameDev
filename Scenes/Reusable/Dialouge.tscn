@@ -1,0 +1,80 @@
+[gd_scene load_steps=3 format=3 uid="uid://dbmqljwa4bp7s"]
+
+[ext_resource type="Texture2D" uid="uid://dii3b86w377st" path="res://Icons/right-arrow.png" id="1_aay5g"]
+[ext_resource type="Theme" uid="uid://05x0jtoqf3eb" path="res://Themes/Dialouge theme.tres" id="1_oopix"]
+
+[node name="Dialouge UI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_oopix")
+
+[node name="Dialouge Box" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(0, 135)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Dialouge Box"]
+layout_mode = 2
+text = "This is a line of text."
+
+[node name="Speaker Box" type="Control" parent="."]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -185.0
+offset_right = 200.0
+offset_bottom = -135.0
+grow_vertical = 0
+
+[node name="Polygon2D" type="Polygon2D" parent="Speaker Box"]
+color = Color(0.247059, 0.654902, 0.505882, 0.54902)
+polygon = PackedVector2Array(0, 0, 177, 0, 200, 50, 0, 50)
+uv = PackedVector2Array(-2, -3)
+
+[node name="Label" type="Label" parent="Speaker Box"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -23.5
+offset_top = -24.5
+offset_right = 23.5
+offset_bottom = 24.5
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.00800896
+text = "
+NAME
+"
+
+[node name="Right Arrow Anchor" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Right-arrow" type="Sprite2D" parent="Right Arrow Anchor"]
+position = Vector2(-39, -64)
+rotation = 0.0049006
+scale = Vector2(0.152344, 0.150391)
+texture = ExtResource("1_aay5g")
+centered = false

@@ -17,6 +17,10 @@ config/features=PackedStringArray("4.4", "GL Compatibility")
 run/max_fps=120
 config/icon="res://Images/icon.svg"
 
+[audio]
+
+buses/default_bus_layout="res://Themes/default_bus_layout.tres"
+
 [debug]
 
 settings/stdout/print_fps=true
