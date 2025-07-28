@@ -4,7 +4,7 @@ extends Control
 var indeks : int = 0
 @onready var dijalog : RichTextLabel = $Dialogue
 
-const TEXT_CHANGE_TIME : int = 3 # Kolku brzo ke se menuva tekstot
+const TEXT_CHANGE_TIME : int = 2 # Kolku brzo ke se menuva tekstot
 signal dialogue
 
 func _ready() -> void:
@@ -14,26 +14,36 @@ func _ready() -> void:
 	create_tween().tween_property(dijalog, "visible_characters", 100, TEXT_CHANGE_TIME)
 	timerr.start()
 	await timerr.timeout
-	dijalog.text = "Alright, listen up."
+	dijalog.text = "Alright, listen up. This is important."
 	dijalog.visible_characters = 0
 	create_tween().tween_property(dijalog, "visible_characters", 100, TEXT_CHANGE_TIME)
 	timerr.start()
 	await timerr.timeout
-	dijalog.text = "This time, you get to choose the subject. Don’t waste the opportunity."
+	dijalog.text = "This Friday, you’ll be taking your Final Exams — standardized, written, no room for games."
 	dijalog.visible_characters = 0
 	create_tween().tween_property(dijalog, "visible_characters", 100, TEXT_CHANGE_TIME)
 	timerr.start()
 	await timerr.timeout
-	dijalog.text = "The more you prepare, the less likely you’ll embarrass yourself."
+	dijalog.text = "You’ll get to pick two subjects. We’ve submitted your preferences, but the responsibility is yours."
 	dijalog.visible_characters = 0
-	create_tween().tween_property(dijalog, "visible_characters", 100, TEXT_CHANGE_TIME)
+	create_tween().tween_property(dijalog, "visible_characters", 110, TEXT_CHANGE_TIME)
 	timerr.start()
 	await timerr.timeout
-	dialogue.emit()
+	dijalog.text = "Your results go directly on your Grade Transcript. These grades will affect your scholarship chances and more."
+	dijalog.visible_characters = 0
+	create_tween().tween_property(dijalog, "visible_characters", 120, TEXT_CHANGE_TIME)
+	timerr.start()
+	await timerr.timeout
+	dijalog.text = "Choose wisely — and study. No second chances."
+	dijalog.visible_characters = 0
+	create_tween().tween_property(dijalog, "visible_characters", 50, TEXT_CHANGE_TIME)
+	timerr.start()
+	await timerr.timeout
+	dialogue.emit() #_on_day_1_choose()
 	create_tween().tween_property(dijalog, "visible_characters", 0, 1)
 
 
-func _on_day_1_choose() -> void:
+func _on_day_1_choose() -> void: 
 	dijalog.text = "Noted. The quiz will be based on that topic."
 	create_tween().tween_property(dijalog, "visible_characters", 100, TEXT_CHANGE_TIME)
 	timerr.start()

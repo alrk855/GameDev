@@ -13,7 +13,7 @@ signal choose
 
 func _on_button_science_pressed() -> void:
 	if(Stats.subject_chosen == false):
-		Stats.subject = 0
+		Stats.subject_1 = 0
 		choose.emit()
 		Stats.subject_chosen = true
 		anim.play("Day1_button")
@@ -31,7 +31,7 @@ func _on_button_science_pressed() -> void:
 
 func _on_button_geography_pressed() -> void:
 	if(Stats.subject_chosen == false):
-		Stats.subject = 1
+		Stats.subject_1 = 1
 		choose.emit()
 		Stats.subject_chosen = true
 		anim.play("Day1_button")
@@ -49,7 +49,7 @@ func _on_button_geography_pressed() -> void:
 
 func _on_button_math_pressed() -> void:
 	if(Stats.subject_chosen == false):
-		Stats.subject = 2
+		Stats.subject_1 = 2
 		choose.emit()
 		Stats.subject_chosen = true
 		anim.play("Day1_button")
@@ -67,7 +67,7 @@ func _on_button_math_pressed() -> void:
 
 func _on_button_general_pressed() -> void:
 	if(Stats.subject_chosen == false):
-		Stats.subject = 3
+		Stats.subject_1 = 3
 		choose.emit()
 		Stats.subject_chosen = true
 		anim.play("Day1_button")

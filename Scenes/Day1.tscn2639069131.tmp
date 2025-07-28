@@ -1,10 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://ds7a8558sknvq"]
+[gd_scene load_steps=11 format=3 uid="uid://ds7a8558sknvq"]
 
 [ext_resource type="Texture2D" uid="uid://dmck10q3lcg5c" path="res://Images/20250623_1709_Professor's Classroom_remix_01jyena3n9exrbnbeah5y784te.png" id="1_34743"]
 [ext_resource type="Script" uid="uid://c5844u8lu2uv4" path="res://Scenes/Day1.gd" id="1_vb3sr"]
 [ext_resource type="PackedScene" uid="uid://dbmqljwa4bp7s" path="res://Scenes/Reusable/Dialouge.tscn" id="2_vb3sr"]
 [ext_resource type="PackedScene" uid="uid://be02gb1lcicyt" path="res://Scenes/Reusable/TaskManager.tscn" id="4_homli"]
-[ext_resource type="Texture2D" uid="uid://dvv7y62yfddqd" path="res://Images/btn2.png" id="5_2wwur"]
 
 [sub_resource type="Animation" id="Animation_34743"]
 resource_name = "Day1_button"
@@ -186,16 +185,6 @@ text = "📖 General Knowledge"
 libraries = {
 &"": SubResource("AnimationLibrary_homli")
 }
-
-[node name="TextureRect" type="TextureRect" parent="."]
-visible = false
-layout_mode = 0
-offset_left = 422.0
-offset_top = 140.0
-offset_right = 646.0
-offset_bottom = 212.0
-texture = ExtResource("5_2wwur")
-expand_mode = 1
 
 [connection signal="choose" from="." to="CanvasLayer/Dialouge UI" method="_on_day_1_choose"]
 [connection signal="dialogue" from="CanvasLayer/Dialouge UI" to="." method="_on_dialouge_ui_dialogue"]
