@@ -1,0 +1,189 @@
+[gd_scene load_steps=10 format=3 uid="uid://ds7a8558sknvq"]
+
+[ext_resource type="Texture2D" uid="uid://dmck10q3lcg5c" path="res://Images/20250623_1709_Professor's Classroom_remix_01jyena3n9exrbnbeah5y784te.png" id="1_34743"]
+[ext_resource type="Script" uid="uid://c5844u8lu2uv4" path="res://Scenes/Day1.gd" id="1_vb3sr"]
+[ext_resource type="PackedScene" uid="uid://dbmqljwa4bp7s" path="res://Scenes/Reusable/Dialouge.tscn" id="2_vb3sr"]
+
+[sub_resource type="Animation" id="Animation_34743"]
+resource_name = "Day1_button"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.6),
+"transitions": PackedFloat32Array(2.63902, 0.307786, 1),
+"update": 0,
+"values": [Vector2(122, 150), Vector2(160, 150), Vector2(-300, 150)]
+}
+
+[sub_resource type="Animation" id="Animation_homli"]
+resource_name = "Day1_button2"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.6),
+"transitions": PackedFloat32Array(2.63902, 0.307786, 1),
+"update": 0,
+"values": [Vector2(122, 260), Vector2(160, 260), Vector2(-300, 260)]
+}
+
+[sub_resource type="Animation" id="Animation_2wwur"]
+resource_name = "Day1_button3"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.6),
+"transitions": PackedFloat32Array(2.63902, 0.307786, 1),
+"update": 0,
+"values": [Vector2(800, 150), Vector2(760, 150), Vector2(1300, 150)]
+}
+
+[sub_resource type="Animation" id="Animation_1qpqp"]
+resource_name = "Day1_button4"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.6),
+"transitions": PackedFloat32Array(2.63902, 0.307786, 1),
+"update": 0,
+"values": [Vector2(800, 260), Vector2(760, 260), Vector2(1300, 260)]
+}
+
+[sub_resource type="Animation" id="Animation_vb3sr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(122, 150)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_homli"]
+_data = {
+&"Day1_button": SubResource("Animation_34743"),
+&"Day1_button2": SubResource("Animation_homli"),
+&"Day1_button3": SubResource("Animation_2wwur"),
+&"Day1_button4": SubResource("Animation_1qpqp"),
+&"RESET": SubResource("Animation_vb3sr")
+}
+
+[node name="Day1" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vb3sr")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+z_index = -1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_right = 3.0
+offset_bottom = 63.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_34743")
+expand_mode = 1
+
+[node name="Dialouge UI" parent="CanvasLayer" instance=ExtResource("2_vb3sr")]
+
+[node name="MAP" type="Label" parent="CanvasLayer"]
+offset_left = 1032.0
+offset_top = 14.0
+offset_right = 1134.0
+offset_bottom = 41.0
+text = "Classroom"
+horizontal_alignment = 1
+autowrap_mode = 2
+uppercase = true
+
+[node name="Button_Science" type="Button" parent="."]
+layout_mode = 0
+offset_left = 122.0
+offset_top = 150.0
+offset_right = 323.0
+offset_bottom = 240.0
+text = "🧬 Science"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Button_Science"]
+libraries = {
+&"": SubResource("AnimationLibrary_homli")
+}
+
+[node name="Button_Geography" type="Button" parent="."]
+layout_mode = 0
+offset_left = 122.0
+offset_top = 150.0
+offset_right = 323.0
+offset_bottom = 240.0
+text = "🌍 Geography"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Button_Geography"]
+libraries = {
+&"": SubResource("AnimationLibrary_homli")
+}
+
+[node name="Button_Math" type="Button" parent="."]
+layout_mode = 0
+offset_left = 122.0
+offset_top = 150.0
+offset_right = 323.0
+offset_bottom = 240.0
+text = "🧮 Math (Algebra Basics)"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Button_Math"]
+libraries = {
+&"": SubResource("AnimationLibrary_homli")
+}
+
+[node name="Button_General" type="Button" parent="."]
+layout_mode = 0
+offset_left = 122.0
+offset_top = 150.0
+offset_right = 323.0
+offset_bottom = 240.0
+text = "📖 General Knowledge"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Button_General"]
+libraries = {
+&"": SubResource("AnimationLibrary_homli")
+}
+
+[connection signal="choose" from="." to="CanvasLayer/Dialouge UI" method="_on_day_1_choose"]
+[connection signal="dialogue" from="CanvasLayer/Dialouge UI" to="." method="_on_dialouge_ui_dialogue"]
+[connection signal="pressed" from="Button_Science" to="." method="_on_button_science_pressed"]
+[connection signal="pressed" from="Button_Geography" to="." method="_on_button_geography_pressed"]
+[connection signal="pressed" from="Button_Math" to="." method="_on_button_math_pressed"]
+[connection signal="pressed" from="Button_General" to="." method="_on_button_general_pressed"]

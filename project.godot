@@ -15,11 +15,14 @@ config/tags=PackedStringArray("2d", "grayline", "official")
 run/main_scene="uid://bk5q0a776lue6"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 run/max_fps=120
-config/icon="res://Images/icon.svg"
 
 [audio]
 
 buses/default_bus_layout="res://Themes/default_bus_layout.tres"
+
+[autoload]
+
+Stats="*res://Scripts/Singleton/Stats.gd"
 
 [debug]
 

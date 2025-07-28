@@ -644,6 +644,7 @@ offset_top = 443.0
 offset_right = 724.0
 offset_bottom = 468.0
 focus_mode = 0
+selected = 1
 item_count = 2
 popup/item_0/text = "MKD"
 popup/item_0/id = 0
@@ -657,6 +658,7 @@ offset_top = 363.0
 offset_right = 724.0
 offset_bottom = 394.0
 focus_mode = 0
+selected = 0
 item_count = 2
 popup/item_0/text = "Male"
 popup/item_0/id = 0
@@ -870,6 +872,7 @@ volume_db = -2.0
 [connection signal="mouse_entered" from="Button_Izlez" to="Button_Izlez" method="_on_mouse_entered"]
 [connection signal="value_changed" from="MAIN_PODESUVANJE/HSlider" to="MAIN_PODESUVANJE" method="_on_h_slider_value_changed"]
 [connection signal="toggled" from="MAIN_PODESUVANJE/CheckBox" to="MAIN_PODESUVANJE" method="_on_check_box_toggled"]
+[connection signal="item_selected" from="MAIN_PODESUVANJE/OptionGender" to="MAIN_PODESUVANJE" method="_on_option_gender_item_selected"]
 [connection signal="mouse_entered" from="MAIN_PODESUVANJE/Nagore" to="MAIN_PODESUVANJE/Nagore" method="_on_mouse_entered"]
 [connection signal="mouse_entered" from="UPATSTVO" to="UPATSTVO" method="_on_mouse_entered"]
 [connection signal="mouse_entered" from="MAIN_UPATSTVO/nazad" to="MAIN_UPATSTVO/nazad" method="_on_mouse_entered"]

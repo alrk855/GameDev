@@ -1,9 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://dbmqljwa4bp7s"]
+[gd_scene load_steps=7 format=3 uid="uid://dbmqljwa4bp7s"]
 
-[ext_resource type="Texture2D" uid="uid://dii3b86w377st" path="res://Icons/right-arrow.png" id="1_aay5g"]
 [ext_resource type="Theme" uid="uid://05x0jtoqf3eb" path="res://Themes/Dialouge theme.tres" id="1_oopix"]
+[ext_resource type="Script" uid="uid://bemav6j5iuaex" path="res://Scenes/Reusable/speaker_label.gd" id="3_6qdy2"]
+[ext_resource type="Script" uid="uid://xcecr2s070hd" path="res://Scenes/Reusable/Text_arrow.gd" id="3_gdh11"]
+[ext_resource type="Script" uid="uid://ch72qumy6hfe8" path="res://Scenes/Reusable/dialogue.gd" id="3_l7n5n"]
+[ext_resource type="Texture2D" uid="uid://dwxg2g3ikda5g" path="res://Images/direktor.png" id="3_w3bqa"]
+[ext_resource type="Texture2D" uid="uid://d2ulha32jn5ma" path="res://Icons/right.png" id="4_6qdy2"]
 
 [node name="Dialouge UI" type="Control"]
+z_index = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,22 +16,42 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_oopix")
+script = ExtResource("3_l7n5n")
 
 [node name="Dialouge Box" type="PanelContainer" parent="."]
+z_index = 1
+clip_contents = true
 custom_minimum_size = Vector2(0, 135)
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -135.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Dialouge Box"]
+[node name="Direktor" type="Sprite2D" parent="Dialouge Box"]
+z_index = 1
+position = Vector2(100, 80)
+scale = Vector2(0.167, 0.167)
+texture = ExtResource("3_w3bqa")
+
+[node name="Dialogue" type="RichTextLabel" parent="."]
 layout_mode = 2
-text = "This is a line of text."
+offset_left = 197.0
+offset_top = 521.0
+offset_right = 994.0
+offset_bottom = 642.0
+theme_override_font_sizes/normal_font_size = 32
+text = "The classroom grows quiet. The teacher enters briskly, dropping a folder on the desk."
+scroll_active = false
+justification_flags = 171
+visible_characters = 0
+visible_ratio = 0.0
 
 [node name="Speaker Box" type="Control" parent="."]
+z_index = 3
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 1
 anchors_preset = 2
@@ -38,11 +63,13 @@ offset_bottom = -135.0
 grow_vertical = 0
 
 [node name="Polygon2D" type="Polygon2D" parent="Speaker Box"]
-color = Color(0.247059, 0.654902, 0.505882, 0.54902)
+z_index = 3
+color = Color(0.214683, 0.427914, 0.216121, 1)
 polygon = PackedVector2Array(0, 0, 177, 0, 200, 50, 0, 50)
 uv = PackedVector2Array(-2, -3)
 
-[node name="Label" type="Label" parent="Speaker Box"]
+[node name="SpeakerLABEL" type="Label" parent="Speaker Box"]
+z_index = 5
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -56,25 +83,29 @@ offset_bottom = 24.5
 grow_horizontal = 2
 grow_vertical = 2
 rotation = 0.00800896
-text = "
-NAME
-"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_6qdy2")
 
-[node name="Right Arrow Anchor" type="Control" parent="."]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -40.0
-offset_top = -40.0
-grow_horizontal = 0
-grow_vertical = 0
+[node name="right-arrow" type="Control" parent="."]
+modulate = Color(0.669518, 0.700805, 0, 1)
+z_index = 1
+anchors_preset = 0
+offset_left = 1050.0
+offset_top = 562.0
+offset_right = 1127.0
+offset_bottom = 603.0
+script = ExtResource("3_gdh11")
 
-[node name="Right-arrow" type="Sprite2D" parent="Right Arrow Anchor"]
-position = Vector2(-39, -64)
-rotation = 0.0049006
-scale = Vector2(0.152344, 0.150391)
-texture = ExtResource("1_aay5g")
+[node name="arrow-icon" type="Sprite2D" parent="right-arrow"]
+z_index = 1
+position = Vector2(-9.53674e-06, -19)
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("4_6qdy2")
 centered = false
+
+[node name="change_text" type="Timer" parent="."]
+wait_time = 3.5
+one_shot = true
+
+[connection signal="timeout" from="change_text" to="." method="_on_change_text_timeout"]
