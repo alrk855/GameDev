@@ -32,10 +32,9 @@ grow_horizontal = 2
 grow_vertical = 0
 
 [node name="Direktor" type="Sprite2D" parent="Dialouge Box"]
-visible = false
 z_index = 1
-position = Vector2(100, 80)
-scale = Vector2(0.167, 0.167)
+position = Vector2(99.4, 81.3)
+scale = Vector2(0.166, 0.165375)
 texture = ExtResource("3_w3bqa")
 
 [node name="Dialogue" type="RichTextLabel" parent="."]
