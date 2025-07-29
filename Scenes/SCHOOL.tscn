@@ -1,0 +1,38 @@
+[gd_scene load_steps=2 format=3 uid="uid://brayb2lavypxw"]
+
+[ext_resource type="Texture2D" uid="uid://bsefpdmrgt0tq" path="res://Images/BlueSky_HD2.png" id="1_vigww"]
+
+[node name="School" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SchoolLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="TextureRect" type="TextureRect" parent="SchoolLayer"]
+z_index = -1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_right = 3.0
+offset_bottom = 63.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_vigww")
+expand_mode = 1
+
+[node name="MAP" type="Label" parent="SchoolLayer"]
+modulate = Color(0.698938, 0.672802, 0.440498, 1)
+offset_left = 1045.0
+offset_top = 10.0
+offset_right = 1147.0
+offset_bottom = 37.0
+text = "School"
+horizontal_alignment = 1
+autowrap_mode = 2
+uppercase = true
