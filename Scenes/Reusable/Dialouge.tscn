@@ -1,10 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://dbmqljwa4bp7s"]
+[gd_scene load_steps=14 format=3 uid="uid://dbmqljwa4bp7s"]
 
 [ext_resource type="Theme" uid="uid://05x0jtoqf3eb" path="res://Themes/Dialouge theme.tres" id="1_oopix"]
-[ext_resource type="Script" uid="uid://bemav6j5iuaex" path="res://Scenes/Reusable/speaker_label.gd" id="3_6qdy2"]
 [ext_resource type="Script" uid="uid://xcecr2s070hd" path="res://Scenes/Reusable/Text_arrow.gd" id="3_gdh11"]
 [ext_resource type="Script" uid="uid://ch72qumy6hfe8" path="res://Scenes/Reusable/dialogue.gd" id="3_l7n5n"]
-[ext_resource type="Texture2D" path="res://Images/direktor.png" id="3_w3bqa"]
+[ext_resource type="Texture2D" uid="uid://ck21m63gq4y74" path="res://Images/Characters/direktor.png" id="3_w3bqa"]
 [ext_resource type="Texture2D" uid="uid://d2ulha32jn5ma" path="res://Icons/right.png" id="4_6qdy2"]
 [ext_resource type="Texture2D" uid="uid://oip0thgbr6fb" path="res://Images/Buttons/buttonhover.png" id="4_mdvt6"]
 [ext_resource type="Texture2D" uid="uid://6ikg5804ucfw" path="res://Images/Buttons/buttonpressed.png" id="5_nf0h5"]
@@ -39,10 +38,10 @@ script = ExtResource("3_l7n5n")
 [node name="Choice Control Node" type="Control" parent="."]
 visibility_layer = 4
 anchors_preset = 0
-offset_left = 1154.0
-offset_top = -3.0
-offset_right = 2302.0
-offset_bottom = 646.0
+offset_left = 1172.0
+offset_top = -1.0
+offset_right = 2320.0
+offset_bottom = 648.0
 localize_numeral_system = false
 
 [node name="ChoiceBox" type="VBoxContainer" parent="Choice Control Node"]
@@ -155,7 +154,6 @@ grow_vertical = 2
 rotation = 0.00800896
 horizontal_alignment = 1
 vertical_alignment = 1
-script = ExtResource("3_6qdy2")
 
 [node name="right-arrow" type="Control" parent="."]
 modulate = Color(0.669518, 0.700805, 0, 1)
