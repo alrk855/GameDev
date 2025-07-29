@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cdedpc6k2ihjs"
-path="res://.godot/imported/sekretarka.png-451f7d500362d6d491b4a1dfcfe0531a.ctex"
+uid="uid://dw2rmabf5glia"
+path="res://.godot/imported/Mvr ClerkFrame.png-b22043f9c8a47e31700843608f52bb83.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/sekretarka.png"
-dest_files=["res://.godot/imported/sekretarka.png-451f7d500362d6d491b4a1dfcfe0531a.ctex"]
+source_file="res://Images/CharacterFrames/Mvr ClerkFrame.png"
+dest_files=["res://.godot/imported/Mvr ClerkFrame.png-b22043f9c8a47e31700843608f52bb83.ctex"]
 
 [params]
 

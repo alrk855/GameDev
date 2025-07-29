@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d0hdmp8656nb6"
-path="res://.godot/imported/janitor.png-39c1b1657f4cfe9c7dedcedaad606adb.ctex"
+uid="uid://by3rdaym0rsk5"
+path="res://.godot/imported/Prof1Frame.png-c3e5c6edb2fa53d036a1232e91cb4ec1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/janitor.png"
-dest_files=["res://.godot/imported/janitor.png-39c1b1657f4cfe9c7dedcedaad606adb.ctex"]
+source_file="res://Images/CharacterFrames/Prof1Frame.png"
+dest_files=["res://.godot/imported/Prof1Frame.png-c3e5c6edb2fa53d036a1232e91cb4ec1.ctex"]
 
 [params]
 

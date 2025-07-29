@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dwxg2g3ikda5g"
-path="res://.godot/imported/direktor.png-76e79455b49c4ed84d2a4a0ff0c69f90.ctex"
+uid="uid://djcn4m7yuux4b"
+path="res://.godot/imported/direktorframe.png-0b38b835fcdc713c321b20e0eb054503.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/direktor.png"
-dest_files=["res://.godot/imported/direktor.png-76e79455b49c4ed84d2a4a0ff0c69f90.ctex"]
+source_file="res://Images/CharacterFrames/direktorframe.png"
+dest_files=["res://.godot/imported/direktorframe.png-0b38b835fcdc713c321b20e0eb054503.ctex"]
 
 [params]
 

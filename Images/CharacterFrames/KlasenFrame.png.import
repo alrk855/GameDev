@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b3kgixn6bdg7d"
-path="res://.godot/imported/marko.png-e1821f65494a6036250610cb9a66364c.ctex"
+uid="uid://dn8i2r7f71p60"
+path="res://.godot/imported/KlasenFrame.png-4f8fd02bc3afae90eccac8d6798ea88f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/marko.png"
-dest_files=["res://.godot/imported/marko.png-e1821f65494a6036250610cb9a66364c.ctex"]
+source_file="res://Images/CharacterFrames/KlasenFrame.png"
+dest_files=["res://.godot/imported/KlasenFrame.png-4f8fd02bc3afae90eccac8d6798ea88f.ctex"]
 
 [params]
 
