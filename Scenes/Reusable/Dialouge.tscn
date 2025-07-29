@@ -1,11 +1,29 @@
-[gd_scene load_steps=7 format=3 uid="uid://dbmqljwa4bp7s"]
+[gd_scene load_steps=15 format=3 uid="uid://dbmqljwa4bp7s"]
 
 [ext_resource type="Theme" uid="uid://05x0jtoqf3eb" path="res://Themes/Dialouge theme.tres" id="1_oopix"]
 [ext_resource type="Script" uid="uid://bemav6j5iuaex" path="res://Scenes/Reusable/speaker_label.gd" id="3_6qdy2"]
 [ext_resource type="Script" uid="uid://xcecr2s070hd" path="res://Scenes/Reusable/Text_arrow.gd" id="3_gdh11"]
 [ext_resource type="Script" uid="uid://ch72qumy6hfe8" path="res://Scenes/Reusable/dialogue.gd" id="3_l7n5n"]
-[ext_resource type="Texture2D" uid="uid://dwxg2g3ikda5g" path="res://Images/direktor.png" id="3_w3bqa"]
+[ext_resource type="Texture2D" path="res://Images/direktor.png" id="3_w3bqa"]
 [ext_resource type="Texture2D" uid="uid://d2ulha32jn5ma" path="res://Icons/right.png" id="4_6qdy2"]
+[ext_resource type="Texture2D" uid="uid://oip0thgbr6fb" path="res://Images/Buttons/buttonhover.png" id="4_mdvt6"]
+[ext_resource type="Texture2D" uid="uid://6ikg5804ucfw" path="res://Images/Buttons/buttonpressed.png" id="5_nf0h5"]
+[ext_resource type="Theme" uid="uid://cic3ab2y0afcf" path="res://1pxmarginVbox.tres" id="7_w3bqa"]
+[ext_resource type="Texture2D" uid="uid://c5jkto6cx7703" path="res://Images/Buttons/buttonunpressed.png" id="8_nf0h5"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bxk41"]
+texture = ExtResource("4_mdvt6")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nqybt"]
+texture = ExtResource("8_nf0h5")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1lw3r"]
+texture = ExtResource("5_nf0h5")
+
+[sub_resource type="Theme" id="Theme_20pvh"]
+Button/styles/hover = SubResource("StyleBoxTexture_bxk41")
+Button/styles/normal = SubResource("StyleBoxTexture_nqybt")
+Button/styles/pressed = SubResource("StyleBoxTexture_1lw3r")
 
 [node name="Dialouge UI" type="Control"]
 z_index = 1
@@ -17,6 +35,55 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_oopix")
 script = ExtResource("3_l7n5n")
+
+[node name="Choice Control Node" type="Control" parent="."]
+visibility_layer = 4
+anchors_preset = 0
+offset_left = 1154.0
+offset_top = -3.0
+offset_right = 2302.0
+offset_bottom = 646.0
+localize_numeral_system = false
+
+[node name="ChoiceBox" type="VBoxContainer" parent="Choice Control Node"]
+layout_mode = 2
+offset_left = 276.0
+offset_top = 217.0
+offset_right = 883.0
+offset_bottom = 646.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("7_w3bqa")
+
+[node name="Button" type="Button" parent="Choice Control Node/ChoiceBox"]
+custom_minimum_size = Vector2(0, 38)
+layout_mode = 2
+theme = SubResource("Theme_20pvh")
+text = "Choice 1"
+
+[node name="Button2" type="Button" parent="Choice Control Node/ChoiceBox"]
+custom_minimum_size = Vector2(0, 38)
+layout_mode = 2
+theme = SubResource("Theme_20pvh")
+text = "Choice 2"
+
+[node name="Button3" type="Button" parent="Choice Control Node/ChoiceBox"]
+custom_minimum_size = Vector2(0, 38)
+layout_mode = 2
+theme = SubResource("Theme_20pvh")
+text = "Choice 3"
+
+[node name="Button4" type="Button" parent="Choice Control Node/ChoiceBox"]
+custom_minimum_size = Vector2(0, 38)
+layout_mode = 2
+theme = SubResource("Theme_20pvh")
+text = "Choice 4"
+
+[node name="Button5" type="Button" parent="Choice Control Node/ChoiceBox"]
+custom_minimum_size = Vector2(0, 38)
+layout_mode = 2
+theme = SubResource("Theme_20pvh")
+text = "Choice 5"
 
 [node name="Dialouge Box" type="PanelContainer" parent="."]
 z_index = 1
