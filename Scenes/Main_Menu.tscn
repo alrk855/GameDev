@@ -15,6 +15,7 @@
 [ext_resource type="AudioStream" uid="uid://ctvw57eupcp6k" path="res://Audio/game.mp3" id="12_s36xt"]
 [ext_resource type="Script" uid="uid://q1se55gpch2v" path="res://settings.gd" id="12_u6qb4"]
 [ext_resource type="AudioStream" uid="uid://cfgl7yqq6friy" path="res://Audio/swoosh-6-351021.mp3" id="12_w5jp5"]
+[ext_resource type="FontFile" uid="uid://5c7hk74rdnrm" path="res://fonts/StalinistOne-Regular.ttf" id="13_pj5sj"]
 [ext_resource type="Texture2D" uid="uid://dvxlxpcqh6pd0" path="res://Audio/speaker-filled-audio-tool.png" id="13_tvv58"]
 [ext_resource type="FontFile" uid="uid://cpanjy35sky82" path="res://fonts/Russo_One.ttf" id="14_u2ek0"]
 [ext_resource type="Texture2D" uid="uid://b805xlr5mghjj" path="res://Icons/arrows.png" id="15_xw7w0"]
@@ -245,9 +246,6 @@ modulate_color = Color(0.788235, 0.937255, 1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_es6ti"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
-
-[sub_resource type="SystemFont" id="SystemFont_es6ti"]
-font_names = PackedStringArray("Stalinist One")
 
 [sub_resource type="Animation" id="Animation_wrfco"]
 length = 0.001
@@ -503,7 +501,7 @@ offset_right = 256.0
 offset_bottom = 19.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/normal_font = SubResource("SystemFont_es6ti")
+theme_override_fonts/normal_font = ExtResource("13_pj5sj")
 theme_override_font_sizes/normal_font_size = 24
 text = "Кликни за да започнеш"
 autowrap_mode = 0
