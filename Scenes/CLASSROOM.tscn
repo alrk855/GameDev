@@ -1,15 +1,10 @@
-[gd_scene load_steps=24 format=3 uid="uid://ds7a8558sknvq"]
+[gd_scene load_steps=20 format=3 uid="uid://ds7a8558sknvq"]
 
 [ext_resource type="Script" uid="uid://c5844u8lu2uv4" path="res://Scenes/CLASSROOM.gd" id="1_gt77s"]
 [ext_resource type="Texture2D" uid="uid://dmck10q3lcg5c" path="res://Images/20250623_1709_Professor's Classroom_remix_01jyena3n9exrbnbeah5y784te.png" id="3_n4xg7"]
-[ext_resource type="StyleBox" uid="uid://bwxt3e44dbhti" path="res://Images/GrayPanel.tres" id="4_iaw3j"]
 [ext_resource type="PackedScene" uid="uid://dbmqljwa4bp7s" path="res://Scenes/Reusable/Dialogue.tscn" id="4_itqwg"]
 [ext_resource type="FontFile" uid="uid://cpanjy35sky82" path="res://fonts/Russo_One.ttf" id="4_nwxlj"]
 [ext_resource type="Texture2D" uid="uid://d2ulha32jn5ma" path="res://Icons/right.png" id="5_gt77s"]
-[ext_resource type="Texture2D" uid="uid://bkfauhcg43i3h" path="res://Icons/arrow-right (2).png" id="5_itqwg"]
-[ext_resource type="Script" uid="uid://cayv8032jyehb" path="res://Scripts/OneTime/direktor_ponatamu.gd" id="5_qend2"]
-[ext_resource type="AudioStream" uid="uid://drybfhkp0pkgy" path="res://Audio/IntroPop.mp3" id="6_52la5"]
-[ext_resource type="AudioStream" uid="uid://mcjk4y7sawpr" path="res://Audio/u4.mp3" id="6_iaw3j"]
 
 [sub_resource type="Animation" id="Animation_34743"]
 resource_name = "Day1_button"
@@ -169,30 +164,14 @@ _data = {
 &"taskanim": SubResource("Animation_wmbhq")
 }
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qend2"]
-bg_color = Color(0.165657, 0.165656, 0.165656, 1)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-border_color = Color(0.164706, 0.164706, 0.164706, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+[sub_resource type="Gradient" id="Gradient_rgi53"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_52la5"]
-bg_color = Color(0.0562915, 0.0562916, 0.0562915, 1)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-border_color = Color(0.054902, 0.054902, 0.054902, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-shadow_color = Color(0, 0, 0, 1)
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_nwxlj"]
+gradient = SubResource("Gradient_rgi53")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gt77s"]
+texture = SubResource("GradientTexture2D_nwxlj")
+modulate_color = Color(0.114897, 0.114897, 0.114897, 1)
 
 [node name="CLASSROOM" type="Control"]
 layout_mode = 3
@@ -299,7 +278,6 @@ libraries = {
 }
 
 [node name="New Tasks Added" type="Label" parent="."]
-z_index = 10
 layout_mode = 0
 offset_left = 30.0
 offset_top = 15.0
@@ -320,7 +298,6 @@ libraries = {
 }
 
 [node name="PRESS_T_LABEL" type="Label" parent="."]
-z_index = 10
 layout_mode = 0
 offset_left = 30.0
 offset_top = 15.0
@@ -340,18 +317,14 @@ libraries = {
 
 [node name="Transition" type="Panel" parent="."]
 visible = false
-z_index = 9
+z_index = 10
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = ExtResource("4_iaw3j")
-script = ExtResource("5_qend2")
-
-[node name="SFX" type="AudioStreamPlayer2D" parent="Transition"]
-stream = ExtResource("6_52la5")
+theme_override_styles/panel = SubResource("StyleBoxTexture_gt77s")
 
 [node name="Label" type="Label" parent="Transition"]
 layout_mode = 1
@@ -379,37 +352,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="ponatamu" type="Button" parent="Transition"]
-modulate = Color(1, 1, 1, 0)
-z_index = 2
-layout_direction = 3
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -152.5
-offset_top = 160.0
-offset_right = 152.5
-offset_bottom = 237.0
-grow_horizontal = 2
-grow_vertical = 2
-focus_mode = 0
-theme_override_styles/hover = SubResource("StyleBoxFlat_qend2")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_52la5")
-theme_override_styles/normal = SubResource("StyleBoxFlat_52la5")
-icon = ExtResource("5_itqwg")
-icon_alignment = 1
-expand_icon = true
-
-[node name="Click_sound" type="AudioStreamPlayer2D" parent="Transition/ponatamu"]
-stream = ExtResource("6_iaw3j")
-volume_db = -2.0
-
-[node name="Timer" type="Timer" parent="Transition/ponatamu"]
-wait_time = 2.0
-
 [node name="transitionButton" type="TextureButton" parent="."]
 layout_mode = 0
 offset_left = 1038.0
@@ -420,10 +362,6 @@ texture_normal = ExtResource("5_gt77s")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 15.0
-one_shot = true
-
 [connection signal="choose" from="." to="ClassroomLayer/Dialogue UI" method="_on_day_1_choose"]
 [connection signal="dialogue" from="ClassroomLayer/Dialogue UI" to="." method="_on_dialouge_ui_dialogue"]
 [connection signal="pressed" from="Button_Science" to="." method="_on_button_science_pressed"]
@@ -431,6 +369,4 @@ one_shot = true
 [connection signal="pressed" from="Button_Math" to="." method="_on_button_math_pressed"]
 [connection signal="pressed" from="Button_General" to="." method="_on_button_general_pressed"]
 [connection signal="pressed" from="Button_Macedonian" to="." method="_on_button_macedonian_pressed"]
-[connection signal="mouse_entered" from="Transition/ponatamu" to="Transition" method="_on_ponatamu_mouse_entered"]
-[connection signal="pressed" from="Transition/ponatamu" to="Transition" method="_on_ponatamu_pressed"]
 [connection signal="pressed" from="transitionButton" to="." method="_on_texture_button_pressed"]
