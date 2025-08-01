@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Grayline"
-config/tags=PackedStringArray("2d", "grayline", "official")
+config/tags=PackedStringArray("2d", "official")
 run/main_scene="uid://bk5q0a776lue6"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 run/max_fps=120
@@ -23,6 +23,7 @@ buses/default_bus_layout="res://Themes/default_bus_layout.tres"
 [autoload]
 
 Stats="*res://Scripts/Singleton/Stats.gd"
+TaskManager="*res://Scenes/Reusable/TaskManager.tscn"
 
 [debug]
 

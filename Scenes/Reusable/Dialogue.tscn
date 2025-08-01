@@ -1,29 +1,26 @@
-[gd_scene load_steps=15 format=3 uid="uid://dbmqljwa4bp7s"]
+[gd_scene load_steps=12 format=3 uid="uid://dbmqljwa4bp7s"]
 
 [ext_resource type="Theme" uid="uid://05x0jtoqf3eb" path="res://Themes/Dialouge theme.tres" id="1_oopix"]
-[ext_resource type="Script" uid="uid://bemav6j5iuaex" path="res://Scenes/Reusable/speaker_label.gd" id="3_6qdy2"]
-[ext_resource type="Script" uid="uid://xcecr2s070hd" path="res://Scenes/Reusable/Text_arrow.gd" id="3_gdh11"]
 [ext_resource type="Script" uid="uid://ch72qumy6hfe8" path="res://Scenes/Reusable/dialogue.gd" id="3_l7n5n"]
-[ext_resource type="Texture2D" path="res://Images/direktor.png" id="3_w3bqa"]
-[ext_resource type="Texture2D" uid="uid://d2ulha32jn5ma" path="res://Icons/right.png" id="4_6qdy2"]
 [ext_resource type="Texture2D" uid="uid://oip0thgbr6fb" path="res://Images/Buttons/buttonhover.png" id="4_mdvt6"]
 [ext_resource type="Texture2D" uid="uid://6ikg5804ucfw" path="res://Images/Buttons/buttonpressed.png" id="5_nf0h5"]
+[ext_resource type="Texture2D" uid="uid://djcn4m7yuux4b" path="res://Images/CharacterFrames/direktorframe.png" id="7_nf0h5"]
 [ext_resource type="Theme" uid="uid://cic3ab2y0afcf" path="res://1pxmarginVbox.tres" id="7_w3bqa"]
 [ext_resource type="Texture2D" uid="uid://c5jkto6cx7703" path="res://Images/Buttons/buttonunpressed.png" id="8_nf0h5"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bxk41"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nf0h5"]
 texture = ExtResource("4_mdvt6")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nqybt"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mdvt6"]
 texture = ExtResource("8_nf0h5")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1lw3r"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bxk41"]
 texture = ExtResource("5_nf0h5")
 
 [sub_resource type="Theme" id="Theme_20pvh"]
-Button/styles/hover = SubResource("StyleBoxTexture_bxk41")
-Button/styles/normal = SubResource("StyleBoxTexture_nqybt")
-Button/styles/pressed = SubResource("StyleBoxTexture_1lw3r")
+Button/styles/hover = SubResource("StyleBoxTexture_nf0h5")
+Button/styles/normal = SubResource("StyleBoxTexture_mdvt6")
+Button/styles/pressed = SubResource("StyleBoxTexture_bxk41")
 
 [node name="Dialouge UI" type="Control"]
 z_index = 1
@@ -39,10 +36,10 @@ script = ExtResource("3_l7n5n")
 [node name="Choice Control Node" type="Control" parent="."]
 visibility_layer = 4
 anchors_preset = 0
-offset_left = 1154.0
-offset_top = -3.0
-offset_right = 2302.0
-offset_bottom = 646.0
+offset_left = 1229.0
+offset_top = -2.0
+offset_right = 2377.0
+offset_bottom = 647.0
 localize_numeral_system = false
 
 [node name="ChoiceBox" type="VBoxContainer" parent="Choice Control Node"]
@@ -100,9 +97,9 @@ grow_vertical = 0
 
 [node name="Direktor" type="Sprite2D" parent="Dialouge Box"]
 z_index = 1
-position = Vector2(99.4, 81.3)
-scale = Vector2(0.166, 0.165375)
-texture = ExtResource("3_w3bqa")
+position = Vector2(91, 69)
+scale = Vector2(0.143833, 0.143625)
+texture = ExtResource("7_nf0h5")
 
 [node name="Dialogue" type="RichTextLabel" parent="."]
 z_index = 3
@@ -153,26 +150,9 @@ offset_bottom = 24.5
 grow_horizontal = 2
 grow_vertical = 2
 rotation = 0.00800896
+text = "Teacher"
 horizontal_alignment = 1
 vertical_alignment = 1
-script = ExtResource("3_6qdy2")
-
-[node name="right-arrow" type="Control" parent="."]
-modulate = Color(0.669518, 0.700805, 0, 1)
-z_index = 1
-anchors_preset = 0
-offset_left = 1050.0
-offset_top = 562.0
-offset_right = 1127.0
-offset_bottom = 603.0
-script = ExtResource("3_gdh11")
-
-[node name="arrow-icon" type="Sprite2D" parent="right-arrow"]
-z_index = 1
-position = Vector2(-9.53674e-06, -19)
-scale = Vector2(0.15, 0.15)
-texture = ExtResource("4_6qdy2")
-centered = false
 
 [node name="change_text" type="Timer" parent="."]
 wait_time = 3.5

@@ -1,10 +1,15 @@
-[gd_scene load_steps=16 format=3 uid="uid://ds7a8558sknvq"]
+[gd_scene load_steps=24 format=3 uid="uid://ds7a8558sknvq"]
 
 [ext_resource type="Script" uid="uid://c5844u8lu2uv4" path="res://Scenes/CLASSROOM.gd" id="1_gt77s"]
-[ext_resource type="PackedScene" uid="uid://be02gb1lcicyt" path="res://Scenes/Reusable/TaskManager.tscn" id="2_wmbhq"]
 [ext_resource type="Texture2D" uid="uid://dmck10q3lcg5c" path="res://Images/20250623_1709_Professor's Classroom_remix_01jyena3n9exrbnbeah5y784te.png" id="3_n4xg7"]
-[ext_resource type="PackedScene" uid="uid://dbmqljwa4bp7s" path="res://Scenes/Reusable/Dialouge.tscn" id="4_itqwg"]
-[ext_resource type="Texture2D" uid="uid://dvv7y62yfddqd" path="res://Images/btn2.png" id="5_iaw3j"]
+[ext_resource type="StyleBox" uid="uid://bwxt3e44dbhti" path="res://Images/GrayPanel.tres" id="4_iaw3j"]
+[ext_resource type="PackedScene" uid="uid://dbmqljwa4bp7s" path="res://Scenes/Reusable/Dialogue.tscn" id="4_itqwg"]
+[ext_resource type="FontFile" uid="uid://cpanjy35sky82" path="res://fonts/Russo_One.ttf" id="4_nwxlj"]
+[ext_resource type="Texture2D" uid="uid://d2ulha32jn5ma" path="res://Icons/right.png" id="5_gt77s"]
+[ext_resource type="Texture2D" uid="uid://bkfauhcg43i3h" path="res://Icons/arrow-right (2).png" id="5_itqwg"]
+[ext_resource type="Script" uid="uid://cayv8032jyehb" path="res://Scripts/OneTime/direktor_ponatamu.gd" id="5_qend2"]
+[ext_resource type="AudioStream" uid="uid://drybfhkp0pkgy" path="res://Audio/IntroPop.mp3" id="6_52la5"]
+[ext_resource type="AudioStream" uid="uid://mcjk4y7sawpr" path="res://Audio/u4.mp3" id="6_iaw3j"]
 
 [sub_resource type="Animation" id="Animation_34743"]
 resource_name = "Day1_button"
@@ -70,21 +75,6 @@ tracks/0/keys = {
 "values": [Vector2(800, 260), Vector2(760, 260), Vector2(1300, 260)]
 }
 
-[sub_resource type="Animation" id="Animation_vb3sr"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(122, 150)]
-}
-
 [sub_resource type="Animation" id="Animation_gt77s"]
 resource_name = "Day1_button5"
 tracks/0/type = "value"
@@ -100,6 +90,21 @@ tracks/0/keys = {
 "values": [Vector2(430, 200), Vector2(430, 200), Vector2(430, -200)]
 }
 
+[sub_resource type="Animation" id="Animation_vb3sr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(122, 150)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_homli"]
 _data = {
 &"Day1_button": SubResource("Animation_34743"),
@@ -110,9 +115,9 @@ _data = {
 &"RESET": SubResource("Animation_vb3sr")
 }
 
-[sub_resource type="Animation" id="Animation_wmbhq"]
-resource_name = "taskanim"
-length = 4.0
+[sub_resource type="Animation" id="Animation_itqwg"]
+resource_name = "PRESS_T"
+length = 6.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -120,10 +125,10 @@ tracks/0/path = NodePath(".:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1, 3, 4),
-"transitions": PackedFloat32Array(0.307786, 1, 0.203063, 1),
+"times": PackedFloat32Array(0, 1, 5, 6),
+"transitions": PackedFloat32Array(0.176777, 1, 0.329877, 1),
 "update": 0,
-"values": [Vector2(-300, 15), Vector2(30, 15), Vector2(30, 15), Vector2(-300, 15)]
+"values": [Vector2(742, -60), Vector2(742, 8), Vector2(742, 8), Vector2(742, -48)]
 }
 
 [sub_resource type="Animation" id="Animation_n4xg7"]
@@ -141,11 +146,53 @@ tracks/0/keys = {
 "values": [Vector2(30, 15)]
 }
 
+[sub_resource type="Animation" id="Animation_wmbhq"]
+resource_name = "taskanim"
+length = 6.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 4.46667, 6),
+"transitions": PackedFloat32Array(0.307786, 1, 0.203063, 1),
+"update": 0,
+"values": [Vector2(-400, 15), Vector2(30, 15), Vector2(30, 15), Vector2(-400, 15)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_itqwg"]
 _data = {
+&"PRESS_T": SubResource("Animation_itqwg"),
 &"RESET": SubResource("Animation_n4xg7"),
 &"taskanim": SubResource("Animation_wmbhq")
 }
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qend2"]
+bg_color = Color(0.165657, 0.165656, 0.165656, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.164706, 0.164706, 0.164706, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_52la5"]
+bg_color = Color(0.0562915, 0.0562916, 0.0562915, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.054902, 0.054902, 0.054902, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 1)
 
 [node name="CLASSROOM" type="Control"]
 layout_mode = 3
@@ -155,10 +202,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_gt77s")
-
-[node name="Tasks" parent="." instance=ExtResource("2_wmbhq")]
-z_index = -3
-layout_mode = 1
 
 [node name="ClassroomLayer" type="CanvasLayer" parent="."]
 layer = -1
@@ -176,7 +219,7 @@ grow_vertical = 2
 texture = ExtResource("3_n4xg7")
 expand_mode = 1
 
-[node name="Dialouge UI" parent="ClassroomLayer" instance=ExtResource("4_itqwg")]
+[node name="Dialogue UI" parent="ClassroomLayer" instance=ExtResource("4_itqwg")]
 
 [node name="MAP" type="Label" parent="ClassroomLayer"]
 modulate = Color(0.698938, 0.672802, 0.440498, 1)
@@ -256,10 +299,11 @@ libraries = {
 }
 
 [node name="New Tasks Added" type="Label" parent="."]
+z_index = 10
 layout_mode = 0
 offset_left = 30.0
 offset_top = 15.0
-offset_right = 321.0
+offset_right = 355.0
 offset_bottom = 90.0
 theme_override_colors/font_color = Color(0.545418, 0.54977, 0.245055, 1)
 theme_override_constants/shadow_offset_x = 3
@@ -268,26 +312,125 @@ theme_override_constants/shadow_outline_size = 3
 text = "📘 New Tasks Added:
 🎯 Prepare for Final Exam: [Subject 1]
 🎯 Prepare for Final Exam: [Subject 2]"
+uppercase = true
 
 [node name="anim" type="AnimationPlayer" parent="New Tasks Added"]
 libraries = {
 &"": SubResource("AnimationLibrary_itqwg")
 }
 
-[node name="test" type="TextureRect" parent="."]
-visible = false
+[node name="PRESS_T_LABEL" type="Label" parent="."]
+z_index = 10
 layout_mode = 0
-offset_left = 422.0
-offset_top = 140.0
-offset_right = 646.0
-offset_bottom = 212.0
-texture = ExtResource("5_iaw3j")
-expand_mode = 1
+offset_left = 30.0
+offset_top = 15.0
+offset_right = 288.0
+offset_bottom = 51.0
+theme_override_colors/font_color = Color(0.713257, 0.362385, 0.352377, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/shadow_outline_size = 3
+theme_override_font_sizes/font_size = 26
+text = "Press T to view tasks"
 
-[connection signal="choose" from="." to="ClassroomLayer/Dialouge UI" method="_on_day_1_choose"]
-[connection signal="dialogue" from="ClassroomLayer/Dialouge UI" to="." method="_on_dialouge_ui_dialogue"]
+[node name="anima" type="AnimationPlayer" parent="PRESS_T_LABEL"]
+libraries = {
+&"": SubResource("AnimationLibrary_itqwg")
+}
+
+[node name="Transition" type="Panel" parent="."]
+visible = false
+z_index = 9
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("4_iaw3j")
+script = ExtResource("5_qend2")
+
+[node name="SFX" type="AudioStreamPlayer2D" parent="Transition"]
+stream = ExtResource("6_52la5")
+
+[node name="Label" type="Label" parent="Transition"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -446.0
+offset_top = -243.0
+offset_right = 446.0
+offset_bottom = 243.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_nwxlj")
+theme_override_font_sizes/font_size = 18
+text = "Директор:
+,,Денес ни стигна нов повик за супер стипендија за студирање на престижен универзитет во странство. Добивате бесплатни студии и сместување доколку ги исполните следните услови:
+Просекот од предметите кои се во подрачјето на студии за кои аплицирате да изнесува 4,50
+Да ја пополните апликацијата за пријава на студии (поднесување на CV, мотивационо писмо...)
+Сертификат за познавање на јазикот на кој ќе се одржуваат студиите.
+За жал времето за поднесување на сите документи е за само една недела, па побрзајте!“
+За дополнителни информации слободно посетете ја секретарката!"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="ponatamu" type="Button" parent="Transition"]
+modulate = Color(1, 1, 1, 0)
+z_index = 2
+layout_direction = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -152.5
+offset_top = 160.0
+offset_right = 152.5
+offset_bottom = 237.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+theme_override_styles/hover = SubResource("StyleBoxFlat_qend2")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_52la5")
+theme_override_styles/normal = SubResource("StyleBoxFlat_52la5")
+icon = ExtResource("5_itqwg")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Click_sound" type="AudioStreamPlayer2D" parent="Transition/ponatamu"]
+stream = ExtResource("6_iaw3j")
+volume_db = -2.0
+
+[node name="Timer" type="Timer" parent="Transition/ponatamu"]
+wait_time = 2.0
+
+[node name="transitionButton" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 1038.0
+offset_top = 541.0
+offset_right = 1129.0
+offset_bottom = 627.0
+texture_normal = ExtResource("5_gt77s")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 15.0
+one_shot = true
+
+[connection signal="choose" from="." to="ClassroomLayer/Dialogue UI" method="_on_day_1_choose"]
+[connection signal="dialogue" from="ClassroomLayer/Dialogue UI" to="." method="_on_dialouge_ui_dialogue"]
 [connection signal="pressed" from="Button_Science" to="." method="_on_button_science_pressed"]
 [connection signal="pressed" from="Button_Geography" to="." method="_on_button_geography_pressed"]
 [connection signal="pressed" from="Button_Math" to="." method="_on_button_math_pressed"]
 [connection signal="pressed" from="Button_General" to="." method="_on_button_general_pressed"]
 [connection signal="pressed" from="Button_Macedonian" to="." method="_on_button_macedonian_pressed"]
+[connection signal="mouse_entered" from="Transition/ponatamu" to="Transition" method="_on_ponatamu_mouse_entered"]
+[connection signal="pressed" from="Transition/ponatamu" to="Transition" method="_on_ponatamu_pressed"]
+[connection signal="pressed" from="transitionButton" to="." method="_on_texture_button_pressed"]
