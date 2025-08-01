@@ -14,6 +14,7 @@ grow_vertical = 2
 script = ExtResource("1_j88lv")
 
 [node name="School" type="TextureButton" parent="."]
+layout_mode = 0
 offset_left = 949.0
 offset_top = 314.0
 offset_right = 1121.0

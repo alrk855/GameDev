@@ -148,3 +148,11 @@ func _on_texture_button_pressed() -> void:
 	timePonatamu.start()
 	await timePonatamu.timeout
 	create_tween().tween_property($"Transition/ponatamu", "modulate:a", 1, 0.5).set_trans(Tween.TRANS_EXPO)
+
+@onready var clickS : AudioStreamPlayer2D = $Transition/ponatamu/Click_sound
+func _on_ponatamu_mouse_entered() -> void:
+	clickS.play()
+
+
+func _on_ponatamu_pressed() -> void:
+	get_tree().change_scene_to_file("res://Scenes/SCHOOL.tscn")

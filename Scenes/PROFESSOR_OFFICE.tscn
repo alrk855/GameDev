@@ -42,6 +42,7 @@ autowrap_mode = 2
 uppercase = true
 
 [node name="School" type="TextureButton" parent="."]
+layout_mode = 0
 offset_left = 35.0
 offset_top = 298.0
 offset_right = 207.0
